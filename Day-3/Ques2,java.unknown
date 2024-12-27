@@ -1,0 +1,64 @@
+public class Ques2 {
+    static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int val) {
+            this.val = val;
+            this.next = null;
+        }
+    }
+
+    public static ListNode reverseListIterative(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+        while (current != null) {
+            ListNode nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
+
+    public static ListNode reverseListRecursive(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = reverseListRecursive(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+
+    public static void printList(ListNode head) {
+        ListNode current = head;
+        while (current != null) {
+            System.out.print(current.val + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        ListNode head1 = new ListNode(1);
+        head1.next = new ListNode(2);
+        head1.next.next = new ListNode(3);
+        head1.next.next.next = new ListNode(4);
+        head1.next.next.next.next = new ListNode(5);
+
+        System.out.println("Original List 1:");
+        printList(head1);
+        ListNode reversedHead1 = reverseListIterative(head1);
+        System.out.println("Reversed List 1 (Iterative):");
+        printList(reversedHead1);
+
+        ListNode head2 = new ListNode(1);
+        head2.next = new ListNode(2);
+
+        System.out.println("Original List 2:");
+        printList(head2);
+        ListNode reversedHead2 = reverseListRecursive(head2);
+        System.out.println("Reversed List 2 (Recursive):");
+        printList(reversedHead2);
+    }
+}
